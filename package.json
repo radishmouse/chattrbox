@@ -5,11 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js"
+    "start": "babel-node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "eslint": "^0.24.1"
+    "eslint": "^0.24.1",
+    "ws": "^0.7.2"
   }
 }
