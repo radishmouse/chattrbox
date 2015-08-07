@@ -2,6 +2,7 @@
 console.log('hey there');
 
 var username = prompt('Enter a username');
+// var username = 'caquino@bignerdranch.com';
 username = username.toLowerCase();
 
 var odd = false;
@@ -13,19 +14,24 @@ socket.onopen = function () {
 
   $('#js-chat-input').submit(function(event){
     event.preventDefault();
-    var payload = {};
-    payload.message = $('#js-message-input').val();
-    payload.user = username;
-
-    // message = '[' + username + '] ' + message;
-
-    // socket.send(JSON.stringify({'chat message': message}));
-    socket.send(JSON.stringify(payload));
-    $('#js-message-input').val('');
+    sendMessage();
 
   });
 
 };
+
+function sendMessage(msg) {
+  var payload = {};
+  payload.message = msg || $('#js-message-input').val();
+  payload.user = username;
+
+  // message = '[' + username + '] ' + message;
+
+  // socket.send(JSON.stringify({'chat message': message}));
+  socket.send(JSON.stringify(payload));
+  $('#js-message-input').val('');
+}
+
 
 socket.onmessage = function (e) {
   console.log('message', e.data);
@@ -40,28 +46,49 @@ socket.onmessage = function (e) {
     title: data.user
   });
 
-  var $message = $('<li>', {
-    // text: msg
+  var $messageRow = $('<li>', {
+    class: 'message-row'
+  });
+  var $message = $('<p>', {
     text: data.message
   });
+
+  $message.append($('<span>', {
+    class: 'timestamp',
+    'data-time': (new Date()).getTime()
+  }));
+
+  $messageRow.append($message);
+
+
   if (odd) {
-    $message.addClass('odd');
+    $messageRow.addClass('odd');
   }
   if (data.user == username) {
-    $message.addClass('me');
-    $message.append($img);
+    $messageRow.addClass('me');
+    $messageRow.append($img);
   } else {
-    $message.prepend($img);
+    $messageRow.prepend($img);
   }
   odd = !odd;
 
-  $('#js-message-list').append($message);
-  $message.get(0).scrollIntoView();
+  $('#js-message-list').append($messageRow);
+  $messageRow.get(0).scrollIntoView();
+  updateTimestamps();
 };
 
 socket.onclose = function () {
   console.log('close');
 };
 
+function updateTimestamps() {
+  console.log('updating timestamps...');
+  $('.timestamp').each(function(idx, $ts) {
+    $ts = $($ts)
+    var time = $ts.attr('date-time');
+    $ts.html(moment(time).fromNow());
+  });
+};
 
+var updater = setInterval(updateTimestamps, 1000);
 
