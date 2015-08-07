@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "eslint": "^0.24.1",
+    "guid": "0.0.12",
     "ws": "^0.7.2"
   }
 }
