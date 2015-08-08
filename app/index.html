@@ -23,8 +23,9 @@
       }
       .timestamp {
         font-style: italic;
-        display: block;
+/*        display: block; */
       }
+
       .me {
         justify-content: flex-end;
       }
@@ -36,10 +37,30 @@
       }
       .message-row img {
         padding-right: 1em;
+        /* flex: auto; */
+        border-radius: 15px;
+      }
+      .message-row p {
+        /* flex: auto; */
       }
       .me img{
         padding-right: 0;
         padding-left: 1em;
+      }
+
+      .me p {
+        text-align: right;
+      }
+
+      .message-username {
+        font-weight: bold;
+      }
+      .message-message {
+        display: block;
+      }
+
+      .message-username + .timestamp {
+        padding-left: 8px;
       }
 
     </style>
@@ -105,6 +126,7 @@
       });
       */
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js" type="text/javascript" charset="utf-8"></script>
   </body>
 </html>
 

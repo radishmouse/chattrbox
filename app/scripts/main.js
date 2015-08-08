@@ -1,7 +1,10 @@
 
 console.log('hey there');
 
-var username = prompt('Enter a username');
+var SS_KEY = 'x-chattrbox/u';
+
+var username = sessionStorage.getItem(SS_KEY) || prompt('Enter a username');
+sessionStorage.setItem(SS_KEY, username);
 // var username = 'caquino@bignerdranch.com';
 username = username.toLowerCase();
 
@@ -24,6 +27,7 @@ function sendMessage(msg) {
   var payload = {};
   payload.message = msg || $('#js-message-input').val();
   payload.user = username;
+  payload.timestamp = (new Date()).getTime();
 
   // message = '[' + username + '] ' + message;
 
@@ -49,13 +53,21 @@ socket.onmessage = function (e) {
   var $messageRow = $('<li>', {
     class: 'message-row'
   });
-  var $message = $('<p>', {
-    text: data.message
-  });
+  var $message = $('<p>');
+
+  $message.append($('<span>', {
+    class: 'message-username',
+    text: data.user
+  }));
 
   $message.append($('<span>', {
     class: 'timestamp',
-    'data-time': (new Date()).getTime()
+    'data-time': data.timestamp
+  }));
+
+  $message.append($('<span>', {
+    class: 'message-message',
+    text: data.message
   }));
 
   $messageRow.append($message);
@@ -85,10 +97,12 @@ function updateTimestamps() {
   console.log('updating timestamps...');
   $('.timestamp').each(function(idx, $ts) {
     $ts = $($ts)
-    var time = $ts.attr('date-time');
+    var time = $ts.attr('data-time');
+    time = parseInt(time, 10);
     $ts.html(moment(time).fromNow());
   });
 };
 
-var updater = setInterval(updateTimestamps, 1000);
+var howOften = 30000;
+var updater = setInterval(updateTimestamps, howOften);
 

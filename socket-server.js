@@ -10,6 +10,8 @@ module.exports = function (port) {
     port: port
   });
 
+  var messages = [];
+
   ws.on('connection', function (socket) {
 
     // give it an id
@@ -17,10 +19,15 @@ module.exports = function (port) {
     // socket.send(JSON.stringify({'clientId': guid.value}));
     // clients[guid.value] = socket;
 
+    // catch folks up
+    messages.forEach(function(msg) {
+      socket.send(msg);
+    });
 
     socket.on('message', function (data) {
       console.log('here be a message');
       console.log(data);
+      messages.push(data);
       ws.clients.forEach(function(clientSocket) {
         clientSocket.send(data)
       });
