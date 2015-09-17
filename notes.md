@@ -3,11 +3,14 @@
 
 - static http (caquino/node-npm-intro)
 
-# doing
 
 - websockets (caquino/websockets)
   - server
   - client
+
+- gravatar api
+
+# doing
 
 # next steps
 
@@ -23,7 +26,6 @@
 
 # nice to have
 
-- gravatar api
 - notifications api
 - audio api
 - geolocation + mapping
@@ -33,4 +35,3 @@
 
 - node-inspector
 - nodemon
-

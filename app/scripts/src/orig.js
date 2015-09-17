@@ -1,6 +1,4 @@
 
-console.log('hey there');
-
 var SS_KEY = 'x-chattrbox/u';
 
 var username = sessionStorage.getItem(SS_KEY) || prompt('Enter a username');
@@ -12,30 +10,16 @@ var odd = false;
 var socket = new WebSocket('ws://localhost:3001');
 socket.onopen = function () {
   console.log('open');
-  // socket.send('test');
-  // socket.close();
 
   $('#js-chat-input').submit(function(event){
     event.preventDefault();
+    // I really should extract the values and pass it to `sendMessage`
+    // Right now it does too much
     sendMessage();
 
   });
 
 };
-
-function sendMessage(msg) {
-  var payload = {};
-  payload.message = msg || $('#js-message-input').val();
-  payload.user = username;
-  payload.timestamp = (new Date()).getTime();
-
-  // message = '[' + username + '] ' + message;
-
-  // socket.send(JSON.stringify({'chat message': message}));
-  socket.send(JSON.stringify(payload));
-  $('#js-message-input').val('');
-}
-
 
 socket.onmessage = function (e) {
   console.log('message', e.data);
@@ -102,6 +86,19 @@ function updateTimestamps() {
     $ts.html(moment(time).fromNow());
   });
 };
+
+function sendMessage(msg) {
+  var payload = {};
+  payload.message = msg || $('#js-message-input').val();
+  payload.user = username;
+  payload.timestamp = (new Date()).getTime();
+
+  socket.send(JSON.stringify(payload));
+
+  // I should be resetting in a separate function
+  $('#js-message-input').val('');
+}
+
 
 var howOften = 30000;
 var updater = setInterval(updateTimestamps, howOften);

@@ -1,69 +1,8 @@
 <html>
   <head>
     <title>Chattrbox</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <style>
-      .chat-wrapper {
-        display: flex;
-        height: 100%;
-        flex-direction: column;
-      }
-      .chat-messages {
-        flex: 3;
-        overflow-y: auto;
-      }
-      ul, ul.panel-body {
-          margin: 0;
-          padding: 0;
-      }
-
-
-      .odd {
-        background: #eee;
-      }
-      .timestamp {
-        font-style: italic;
-/*        display: block; */
-      }
-
-      .me {
-        justify-content: flex-end;
-      }
-
-      .message-row {
-          list-style-type: none;
-          padding: 4px 12px;
-          display: flex;
-      }
-      .message-row img {
-        padding-right: 1em;
-        /* flex: auto; */
-        border-radius: 15px;
-      }
-      .message-row p {
-        /* flex: auto; */
-      }
-      .me img{
-        padding-right: 0;
-        padding-left: 1em;
-      }
-
-      .me p {
-        text-align: right;
-      }
-
-      .message-username {
-        font-weight: bold;
-      }
-      .message-message {
-        display: block;
-      }
-
-      .message-username + .timestamp {
-        padding-left: 8px;
-      }
-
-    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/styles.css">
   </head>
   <body class="container chat-wrapper">
 
@@ -87,45 +26,10 @@
       </form>
     </section>
 
-    <!-- <script src="https://cdn.socket.io/socket.io-1.3.5.js"></script> -->
     <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/md5.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.js" type="text/javascript" charset="utf-8"></script>
-    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-    <script src="/scripts/main.js"></script>
-    <script>
-
-    /*
-      var socket = io.connect('http://localhost:3001');
-      var username = prompt('Enter a username');
-      var odd = false;
-
-      $('#js-chat-input').submit(function(event){
-        event.preventDefault();
-        var message = $('#js-message-input').val();
-        message = '[' + username + '] ' + message;
-        socket.emit('chat message', message);
-        $('#js-message-input').val('');
-      });
-      socket.on('chat message', function(msg){
-        var $message = $('<li>', {
-          text: msg
-        });
-        if (odd) {
-          $message.addClass('odd');
-        }
-        odd = !odd;
-
-        $('#js-message-list').append($message);
-        $message.get(0).scrollIntoView();
-      });
-      socket.on('news', function(msg){
-        console.log(msg);
-        $('#js-message-list').append($('<li>', {
-          text: '[system]: ' + msg.data
-        }));
-      });
-      */
-    </script>
+    <script src="http://code.jquery.com/jquery-1.11.3.js"></script>
+    <script src="/scripts/dist/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js" type="text/javascript" charset="utf-8"></script>
   </body>
 </html>
