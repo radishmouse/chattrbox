@@ -11,7 +11,7 @@ import {UserStore, MessageStore} from './storage';
 import {ChatForm, ChatList, promptForUsername} from './dom';
 
 let userStore = new UserStore(USR_KEY);
-let messageStore = new MessageStore(MSG_KEY);
+// let messageStore = new MessageStore(MSG_KEY);
 
 class ChatApp {
   constructor() {

@@ -3,20 +3,20 @@ let socket;
 
 function init(url)  {
   socket = new WebSocket(url);
-  socket.onclose = function () {
+  socket.onclose = () => {
     console.log('close');
   };
 }
 
 function registerOpenHandler(handlerFunction) {
-  socket.onopen = function () {
+  socket.onopen = () => {
     console.log('open');
     handlerFunction()
   };
 }
 
 function registerMessageHandler(handlerFunction) {
-  socket.onmessage = function (e) {
+  socket.onmessage = (e) => {
     console.log('message', e.data);
     var data = JSON.parse(e.data);
     handlerFunction(data);
