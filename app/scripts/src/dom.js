@@ -69,7 +69,7 @@ export class ChatList {
       $messageRow.addClass('odd');
     }
 
-    if (messageData.user == this.username) {
+    if (messageData.user === this.username) {
       $messageRow.addClass('me');
       $messageRow.append($img);
     } else {
