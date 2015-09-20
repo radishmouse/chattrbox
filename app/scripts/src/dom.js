@@ -2,6 +2,13 @@
 // i should import moment, shouldn't i?
 // and I should import crypto...
 
+// let $;
+// let moment;
+// let md5;
+let $ = require('jquery'); // adds 665k
+let moment = require('moment'); // adds 233k
+let md5 = require('crypto-js/md5'); // adds 81k, 532k if you include the whole thing and not just md5
+
 export function promptForUsername() {
   let username = prompt('Enter a username');
   return username.toLowerCase();
@@ -15,6 +22,9 @@ export class ChatForm {
 
   init(submitCallback) {
     let self = this;
+    $(this.formId).find('button').on('click', () => {
+      $(this.formId).submit();
+    });
     $(this.formId).submit(function(event){
       event.preventDefault();
       let val = $(self.inputId).val();
@@ -87,7 +97,8 @@ export class ChatList {
 }
 
 function createGravatarUrl(username) {
-  var userhash = CryptoJS.MD5(username);
+  // var userhash = CryptoJS.MD5(username);
+  let userhash = md5(username);
   userhash = userhash.toString();
   return 'http://www.gravatar.com/avatar/' + userhash;
 }

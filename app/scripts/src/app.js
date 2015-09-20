@@ -68,7 +68,7 @@ class ChatMessage {
       user: this.username,
       message: this.message,
       timestamp: this.timestamp
-    }
+    };
   }
 }
 

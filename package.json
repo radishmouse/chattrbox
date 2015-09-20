@@ -9,14 +9,19 @@
     "dev": "nodemon index.js",
     "debug": "node-debug index.js",
     "build": "browserify -d app/scripts/src/main.js -o app/scripts/dist/main.js",
-    "watch": "watchify -v -d app/scripts/src/main.js -o app/scripts/dist/main.js"
+    "watch": "watchify -v -d app/scripts/src/main.js -o app/scripts/dist/main.js",
+    "ugly": "uglifyjs app/scripts/dist/main.js -o app/scripts/dist/main.min.js -c -m"
   },
   "browserify": {
     "transform": [
-      [ "babelify", {"sourceMap":  true}]
+      [
+        "babelify",
+        {
+          "sourceMap": true
+        }
+      ]
     ]
   },
-
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -24,7 +29,11 @@
   },
   "devDependencies": {
     "babelify": "^6.3.0",
+    "crypto-js": "^3.1.5",
+    "jquery": "^2.1.4",
+    "moment": "^2.10.6",
     "nodemon": "^1.4.1",
+    "uglify-js": "^2.4.24",
     "watchify": "^3.4.0"
   }
 }
