@@ -8,7 +8,20 @@
 
 Uses npm scripts for build process.
 
-## Step 1: Install the dependencies
+## Step 0: Install global dependencies
+
+
+```
+npm install -g babel
+```
+
+For development mode:
+
+```
+npm install -g nodemon
+```
+
+## Step 1: Install local dependencies
 
 ```
 npm install
