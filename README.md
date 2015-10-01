@@ -8,24 +8,33 @@
 
 Uses npm scripts for build process.
 
-## First:
+## Step 1: Install the dependencies
 
 ```
 npm install
 ```
 
-## To build the client:
+## Step 2: Open two Terminal windows.
+
+
+## Step 3: build and watch your ES6 front-end code.
+
+Do this in one of your Terminals:
 
 ```
 mkdir app/scripts/dist
 npm run watch
 ```
 
-## To run the server:
+## Step 4: run the server.
+
+Do this in your other Terminal:
 
 ```
 npm run dev
 ```
+
+## Step 5: open your browser to the local server you just started.
 
 Then go to `http://localhost:3000`
 
