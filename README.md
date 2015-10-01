@@ -17,6 +17,7 @@ npm install
 ## To build the client:
 
 ```
+mkdir app/scripts/dist
 npm run watch
 ```
 

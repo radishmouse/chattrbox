@@ -2,17 +2,33 @@
 // i should import moment, shouldn't i?
 // and I should import crypto...
 
-// let $;
-// let moment;
-// let md5;
-let $ = require('jquery'); // adds 665k
+// let $ = require('jquery'); // adds 665k
 let moment = require('moment'); // adds 233k
-let md5 = require('crypto-js/md5'); // adds 81k, 532k if you include the whole thing and not just md5
+// let md5 = require('crypto-js/md5'); // adds 81k, 532k if you include the whole thing and not just md5
+
+let $ = require('jquery');
+let md5 = require('crypto-js/md5');
+
+function createGravatarUrl(username) {
+  let userhash = md5(username);
+  userhash = userhash.toString();
+  return `http://www.gravatar.com/avatar/${userhash}`;
+}
 
 export function promptForUsername() {
   let username = prompt('Enter a username');
   return username.toLowerCase();
 }
+
+function updateTimestamps() {
+  console.log('updating timestamps...');
+  $('.timestamp').each((idx, $ts) => {
+    $ts = $($ts)
+    var time = $ts.attr('data-time');
+    time = parseInt(time, 10);
+    $ts.html(moment(time).fromNow());
+  });
+};
 
 export class ChatForm {
   constructor(formId, inputId) {
@@ -21,36 +37,30 @@ export class ChatForm {
   }
 
   init(submitCallback) {
-    let self = this;
+    // let self = this;
     $(this.formId).find('button').on('click', () => {
       $(this.formId).submit();
     });
-    $(this.formId).submit(function(event){
+    $(this.formId).on('submit', (event) =>{
       event.preventDefault();
-      let val = $(self.inputId).val();
+      let val = $(this.inputId).val();
       submitCallback(val);
       // Lazy reset...
-      $(self.inputId).val('');
+      $(this.inputId).val('');
     });
   }
 }
 
 export class ChatList {
-  constructor(listId, username) {
+  constructor(listId, username, updateFrequency=30000) {
     this.listId = listId;
     this.odd = false;
     this.username = username;
 
-    let howOften = 30000;
-    this.updater = setInterval(updateTimestamps, howOften);
+    this.updater = setInterval(updateTimestamps, updateFrequency);
   }
 
   drawMessage(messageData) {
-
-    var $img = $('<img>', {
-      src: createGravatarUrl(messageData.user),
-      title: messageData.user
-    });
 
     var $messageRow = $('<li>', {
       class: 'message-row'
@@ -79,6 +89,11 @@ export class ChatList {
       $messageRow.addClass('odd');
     }
 
+    var $img = $('<img>', {
+      src: createGravatarUrl(messageData.user),
+      title: messageData.user
+    });
+
     if (messageData.user === this.username) {
       $messageRow.addClass('me');
       $messageRow.append($img);
@@ -87,7 +102,15 @@ export class ChatList {
     }
     this.odd = !this.odd;
 
+    $messageRow.hide();
     $(this.listId).append($messageRow);
+
+    let useEffects = messageData.timestamp > (new Date()).getTime() - 5000
+    if (useEffects) {
+      $messageRow.fadeIn();
+    } else {
+      $messageRow.show();
+    }
     $messageRow.get(0).scrollIntoView();
 
     // immediately update timestamps
@@ -95,21 +118,4 @@ export class ChatList {
 
   }
 }
-
-function createGravatarUrl(username) {
-  // var userhash = CryptoJS.MD5(username);
-  let userhash = md5(username);
-  userhash = userhash.toString();
-  return 'http://www.gravatar.com/avatar/' + userhash;
-}
-
-function updateTimestamps() {
-  console.log('updating timestamps...');
-  $('.timestamp').each(function(idx, $ts) {
-    $ts = $($ts)
-    var time = $ts.attr('data-time');
-    time = parseInt(time, 10);
-    $ts.html(moment(time).fromNow());
-  });
-};
 

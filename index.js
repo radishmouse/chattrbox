@@ -1,8 +1,9 @@
 var http = require('http');
+var path = require('path');
 var fs = require('fs');
+var mime = require('mime');
 var extract = require('./extract');
 var port = 3000;
-var path = require('path');
 var wss = require('./websockets-server');
 
 var handleError = function (err, res) {
@@ -19,6 +20,9 @@ var server = http.createServer(function (req, res) {
       handleError(err, res);
       return;
     } else {
+      res.writeHead(200, {
+        'Content-Type': mime.lookup(filePath)
+      });
       res.end(data);
     }
   });

@@ -44,6 +44,6 @@ class UserStore extends Store {
 }
 
 export default {
-  UserStore: UserStore,
-  MessageStore: MessageStore
+  UserStore,
+  MessageStore
 }

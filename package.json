@@ -1,5 +1,5 @@
 {
-  "name": "node-the-things",
+  "name": "chattrbox",
   "version": "0.0.0",
   "description": "",
   "main": "index.js",
@@ -25,6 +25,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "mime": "^1.3.4",
     "ws": "^0.7.2"
   },
   "devDependencies": {

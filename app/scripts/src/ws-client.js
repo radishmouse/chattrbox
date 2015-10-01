@@ -3,6 +3,7 @@ let socket;
 
 function init(url)  {
   socket = new WebSocket(url);
+  console.log('connecting...');
   socket.onclose = () => {
     console.log('close');
   };
@@ -28,8 +29,8 @@ function sendMessage(payload) {
 }
 
 export default {
-  init: init,
-  registerOpenHandler: registerOpenHandler,
-  registerMessageHandler: registerMessageHandler,
-  sendMessage: sendMessage
+  init,
+  registerOpenHandler,
+  registerMessageHandler,
+  sendMessage
 }
